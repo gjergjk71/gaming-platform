@@ -7,10 +7,21 @@ window.onload = function () {
 						"mug","sweater","next","great"]
 	var guessesLeft;
 	var word;
+	// Create alphabet ul-li
+	var alphabet_ui = document.createElement('ul');
+	for (var i=0;i < alphabet.length;i++) {
+		var li = document.createElement("li");
+		li.innerHTML = `<button id="alphabet_letter" class='btn btn-primary'> ${alphabet[i]} </button>`;
+		alphabet_ui.appendChild(li);
+	};
+	document.getElementById("alphabet").appendChild(alphabet_ui);
+	//
 	function play() {
 		guessesLeft = 10; // 
 		word = wordsList[Math.floor(Math.random() * wordsList.length)]; //Word to guess
 		};
+	
+	
 	play();
 	console.log(word);
 };
