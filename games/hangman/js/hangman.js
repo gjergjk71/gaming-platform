@@ -31,4 +31,6 @@ window.onload = function () {
 		};
 	
 	play();
+	document.getElementById("reset_button").onclick = play
+
 };
