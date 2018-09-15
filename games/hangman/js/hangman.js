@@ -6,6 +6,7 @@ window.onload = function () {
 						"seal","pen","deer","foregoing",
 						"mug","sweater","next","great"]
 	var guessesLeft;
+	var guessedLetters = {}; 
 	var word;
 	// Create alphabet ul-li
 	var alphabet_ui = document.createElement('ul');
@@ -23,11 +24,27 @@ window.onload = function () {
 		};
 		return multipliedString;
 	};
+	function showGuessedLetters(gLetters) {
+		show = ""
+		for (var key in gLetters){
+			if (!gLetters[key]){
+				show += "_ ";
+			} else {
+				show += key;
+			};
+		document.getElementById("guessed_letters").innerHTML=show;
+		};
+	};
 	function play() {
+		guessedLetters = {};
 		guessesLeft = 10; // 
 		word = wordsList[Math.floor(Math.random() * wordsList.length)]; //Word to guess
 		console.log(word);
-		document.getElementById("guessed_letters").innerHTML=multiplyString("_ ",word.length);
+		for (var i=0;i<word.length;i++) {
+			guessedLetters[word[i]] = false;
+		};
+		console.log(guessedLetters);
+		showGuessedLetters(guessedLetters)
 		};
 	
 	play();
