@@ -16,12 +16,19 @@ window.onload = function () {
 	};
 	document.getElementById("alphabet").appendChild(alphabet_ui);
 	//
+	function multiplyString(str,times) {
+		multipliedString = ""
+		for (x=0;x<times;x++) {
+			multipliedString += str;
+		};
+		return multipliedString;
+	};
 	function play() {
 		guessesLeft = 10; // 
 		word = wordsList[Math.floor(Math.random() * wordsList.length)]; //Word to guess
+		console.log(word);
+		document.getElementById("guessed_letters").innerHTML=multiplyString("_ ",word.length);
 		};
 	
-	
 	play();
-	console.log(word);
 };
