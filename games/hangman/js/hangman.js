@@ -16,8 +16,7 @@ window.onload = function () {
 		//li.innerHTML = `<button id="alphabet_letter" class='btn btn-primary'> ${alphabet[i]} </button>`;
 		button = document.createElement("button");
 		button.id = letter;
-		button.classList.add = "btn";
-		button.classList.add = "btn-primary";
+		button.setAttribute("class","btn btn-primary");
 		button.innerHTML = letter;
 		button.onclick = (MouseEvent) => {
 			guessLetter(MouseEvent);
