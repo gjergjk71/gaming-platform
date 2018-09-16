@@ -28,15 +28,28 @@ window.onload = function () {
 	document.getElementById("alphabet").appendChild(alphabet_ui);
 	//
 	function guessLetter(MouseEvent) {
-		var letter = MouseEvent["target"].id;
-		if (word.split('').indexOf(letter) >= 0) {
-			console.log("true)");
-			for (var i=0;i<word.length;i++) {
-				if (letter == word[i]) {
-					guessedLetters[letter] = true;
+		if (guessesLeft > 1 ) {
+			
+			var letter = MouseEvent["target"].id;
+			if (word.split('').indexOf(letter) >= 0) {
+				console.log("true)");
+				for (var i=0;i<word.length;i++) {
+					if (letter == word[i]) {
+						guessedLetters[letter] = true;
+					}
 				}
+				showGuessedLetters();
 			}
-			showGuessedLetters();
+			guessesLeft--;
+			playerWon = checkWon()
+			if (playerWon){
+				info_h3.innerHTML = `You won!!`;
+			} else {
+				info_h3.innerHTML = `You've got ${guessesLeft} guesses left!`;
+
+			}
+		} else {
+			info_h3.innerHTML = `You lost!!`;			
 		}
 	}
 	function multiplyString(str,times) {
@@ -58,6 +71,14 @@ window.onload = function () {
 		console.log(guessedLetters);
 		};
 	};
+	function checkWon() {
+		for (var key in guessedLetters) {
+			if (guessedLetters[key] == false) {
+				return false;
+			}
+		}
+		return true;
+	}
 	function play() {
 		guessedLetters = {};
 		guessesLeft = 10; // 
@@ -66,10 +87,15 @@ window.onload = function () {
 		for (var i=0;i<word.length;i++) {
 			guessedLetters[word[i]] = false;
 		};
+		info_h3.innerHTML = `You've got ${guessesLeft} guesses left!`;
 		showGuessedLetters()
 		};
 	
-	play();
+	info = document.getElementById("info");
+	info_h3 = document.createElement("h3")
+	info_h3.innerHTML = `You've got ${guessesLeft} guesses left!`;
+	info.appendChild(info_h3);
 	document.getElementById("reset_button").onclick = play
+	play();
 
 };
