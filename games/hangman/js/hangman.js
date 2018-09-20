@@ -28,8 +28,10 @@ window.onload = function () {
 	//
 	function guessLetter(MouseEvent) {
 		if (guessesLeft > 1 ) {
-			
 			var letter = MouseEvent["target"].id;
+			var button = document.getElementById(letter);
+			button.setAttribute("class","btn btn-secondary")
+			button.onclick = ""
 			if (word.split('').indexOf(letter) >= 0) {
 				console.log("true)");
 				for (var i=0;i<word.length;i++) {
