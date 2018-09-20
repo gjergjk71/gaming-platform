@@ -28,6 +28,7 @@ window.onload = function () {
 	//
 	function guessLetter(MouseEvent) {
 		if (guessesLeft > 1 ) {
+			var guessed = false;
 			var letter = MouseEvent["target"].id;
 			var button = document.getElementById(letter);
 			button.setAttribute("class","btn btn-secondary")
@@ -37,11 +38,14 @@ window.onload = function () {
 				for (var i=0;i<word.length;i++) {
 					if (letter == word[i]) {
 						guessedLetters[letter] = true;
+						guessed = true;
 					}
 				}
+				if (!guessed) {
+					guessesLeft--;
+				};
 				showGuessedLetters();
 			}
-			guessesLeft--;
 			playerWon = checkWon()
 			if (playerWon){
 				info_h3.innerHTML = `You won!!`;
