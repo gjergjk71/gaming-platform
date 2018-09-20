@@ -41,11 +41,11 @@ window.onload = function () {
 						guessed = true;
 					}
 				}
-				if (!guessed) {
-					guessesLeft--;
-				};
-				showGuessedLetters();
 			}
+			if (!guessed) {
+				guessesLeft--;
+			};
+			showGuessedLetters();
 			playerWon = checkWon()
 			if (playerWon){
 				info_h3.innerHTML = `You won!!`;
