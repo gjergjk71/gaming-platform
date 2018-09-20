@@ -19,11 +19,6 @@ def custom_login(request):
 			return render(request,"registration/login.html",{'invalid': True })
 	elif request.method == "GET":
 		return login(request)
-
-			
-def home(request):
-	return render(request,'home.html')
-
 	
 def register(request):
 	if request.user.is_authenticated:
