@@ -13,3 +13,7 @@ class TestAuthentication(TestCase):
 		credentials = {"username":"testing","password":"testing"}
 		response = self.client.post(reverse("login"),data=credentials)
 		self.assertEquals(response.status_code,302)
+	def test_redirect_if_logged_in(self):
+		self.client.force_login(self.user)
+		response = self.client.get(reverse("login"))
+		self.assertEquals(response.status_code,302)
