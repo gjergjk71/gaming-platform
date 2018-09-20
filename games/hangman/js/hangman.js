@@ -80,7 +80,19 @@ window.onload = function () {
 		}
 		return true;
 	}
+	function resetButtons() {
+		for (var i=0;i<alphabet.length;i++) {
+			var button = document.getElementById(alphabet[i]);
+			if (button.className === "btn btn-secondary") {
+				button.className = "btn btn-primary";
+				button.onclick = (MouseEvent) => {
+					guessLetter(MouseEvent);
+				};
+			};
+		};
+	};
 	function play() {
+		resetButtons()
 		guessedLetters = {};
 		guessesLeft = 10; // 
 		word = wordsList[Math.floor(Math.random() * wordsList.length)]; //Word to guess
