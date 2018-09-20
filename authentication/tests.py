@@ -9,3 +9,7 @@ class TestAuthentication(TestCase):
 	def test_200(self):
 		response = self.client.get(reverse("login"))
 		self.assertEquals(response.status_code,200)
+	def test_302(self):
+		credentials = {"username":"testing","password":"testing"}
+		response = self.client.post(reverse("login"),data=credentials)
+		self.assertEquals(response.status_code,302)
