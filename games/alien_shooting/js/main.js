@@ -60,3 +60,13 @@ class Arc{
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+
+var rect1_settings = {"x":360,"y":440,"w":150,"h":30,
+					"strokeStyle":"rgba(0, 0, 100, 200.5)",
+					"fillStyle":"orange","speed":6,"shooting_speed":5}
+var rect2_settings = {"x":300,"y":100,"w":150,"h":50,
+					"strokeStyle":"rgba(0, 0, 100, 200.5)",
+					"fillStyle":"orange","speed":10}
+var arc1_settings = {"x":440,"y":425,"r":15,"sAngle":0,
+					"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
+					"fillStyle":"orange","speed":20};
