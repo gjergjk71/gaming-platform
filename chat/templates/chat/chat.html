@@ -32,7 +32,7 @@ Game: {{game.GameName}}
 	    return cookieValue;
 	}
 	var csrftoken = getCookie('csrftoken');
-	
+
 	function clear(){
 		chat_div = document.getElementById("chat_messages");	
 		chat_div.innerHTML = "Messages:"; 
@@ -47,7 +47,7 @@ Game: {{game.GameName}}
 			chat_div = document.getElementById("chat_messages");
 			ul = document.createElement("ul");
 			for (var message in messages){
-				li = document.createElement("ul");
+				li = document.createElement("li");
 				li.innerHTML = `${messages[message]["fields"]["user_profile"]} - ${messages[message]["fields"]["content"]}`;
 				ul.appendChild(li);
 			}
