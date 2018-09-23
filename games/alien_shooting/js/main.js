@@ -134,3 +134,14 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("keydown", (event) => {
 	keyState[event.keyCode] = true; 
 },false);
+
+function moveRect(x_pos,y_pos,w,h) { 
+			object_over_canvas = y_pos < -1;
+			object_under_canvas = y_pos + h > canvas.height;
+			object_under_width = x_pos < -1;
+			object_over_width = x_pos + w >= canvas.width + 5;
+			if (!(object_over_canvas || object_under_canvas || object_over_width || object_under_width)){
+				rect1.x = x_pos;
+				rect1.y = y_pos;
+			}
+		};
