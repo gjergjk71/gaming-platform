@@ -13,3 +13,13 @@ class TestViews(TestCase):
 		self.user_profile = UserProfile.objects.create(user=self.user)
 		self.game = Game.objects.create(GameName="name",url="urlhere")
 		self.game_message = GameMessage.objects.create(game=self.game,user_profile=self.user_profile,content="text")
+	def test_view_permissions(self):
+		response_game_chat = self.client.get(reverse("game_chat",args=[self.game.id]))
+		self.assertEquals(response_game_chat.status_code,302)
+		response_send_message_api = self.client.get(reverse("send_message_api",args=[self.game.id]))
+		self.assertEquals(response_send_message_api.status_code,200)
+		self.assertContains(response_send_message_api,'"successfull":false')
+		response_send_message_api = self.client.post(reverse("send_message_api",args=[self.game.id]),
+													data={"content":"testing"})
+		self.assertEquals(response_send_message_api.status_code,200)
+		self.assertContains(response_send_message_api,'"successfull":false')
