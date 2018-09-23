@@ -1,0 +1,25 @@
+<html>
+<head>
+
+</head>
+
+<body>
+Game: {{game.GameName}}
+<ul>Messages:
+	<li>
+	{% for message in game_messages %}
+		{{message.user_profile}} - {{message.content}}
+	{% empty %}
+		Nothing to show.
+	{% endfor %}
+	</li>
+</ul>
+<form>
+	Message:<textarea></textarea>
+	<button type="button" onclick="send()">Send</button>
+</form>
+
+
+</body>
+
+</html>
