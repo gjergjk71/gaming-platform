@@ -8,6 +8,6 @@ class GameMessage(models.Model):
 	user_profile = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
 	content = models.TextField()
 	def __str__(self):
-		if len(content) > 250:
+		if len(self.content) > 250:
 			return "{}-{}...".format(self.user_profile,self.content[:247])
 		return "{}-{}...".format(self.user_profile,self.content)
