@@ -162,3 +162,11 @@ function detect_rect_arc_collision(object1,object2) {
 	}
 	return false;
 }
+
+function throwArc() {
+	var arc_settings = {"x":rect1.x + (rect1.w*(1/2)),"y":rect1.y,"r":15,"sAngle":0,
+						"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
+						"fillStyle":"orange","speed":20,"counterclockwise":false};
+	arc_moving.push(arc_settings);
+
+}
