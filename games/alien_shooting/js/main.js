@@ -101,18 +101,52 @@ arc1 = new Arc(ctx,
 
 var keyState = {};
 var arc_moving = [];
+var falling_arc = [];
+var arcs_in_a_row = 2
+function increase_dificulty() {
+	arcs_in_a_row++
+	console.log(arcs_in_a_row);
+	if (arcs_in_a_row < 5) {
+		window.setInterval(increase_dificulty,1000 * Math.floor((Math.random() * 40) + 1))
+	} else if (arcs_in_a_row < 10) {
+		window.setInterval(increase_dificulty,1000 * Math.floor((Math.random() * 10) + 1))		
+	}
+	else if (arcs_in_a_row > 10) {
+		window.setInterval(increase_dificulty,10000)		
+	}
+};
+increase_dificulty();
 function draw() {
 	this.ctx.clearRect(0,0,canvas.width,canvas.height);
 	if (detect_rect_collision(rect1,rect2)) {
 		rect1.fillStyle = "blue";
 	} else if (detect_rect_arc_collision(rect1,arc1)) {
-		
+		rect1.fillStyle = "red";
 	} else {
 		rect1.fillStyle = "orange";
 	}
 	rect2.draw;
 	rect1.draw;	
 	arc1.draw;
+	if (!falling_arc.length) {
+		for (var x=0;x<= arcs_in_a_row;x++){
+			throwArc();
+		}
+	}
+	for (var arc in falling_arc) {
+			if (falling_arc[arc].y > canvas.height) {
+				falling_arc.splice(arc,1);
+			} else {
+				ctx.beginPath();
+				ctx.arc(falling_arc[arc].x,falling_arc[arc].y,falling_arc[arc].r,falling_arc[arc].sAngle,falling_arc[arc].eAngle,falling_arc[arc].counterclockwise);
+				ctx.strokeStyle = "red";
+				ctx.fillStyle = "orange";
+				ctx.fill();
+				ctx.stroke();
+				ctx.closePath();
+				falling_arc[arc].y += falling_arc[arc].speed;
+			}
+	}
 	for (var arc in arc_moving) {
 		if (arc_moving[arc].y < -1) {
 			delete arc_moving[arc];
@@ -166,6 +200,15 @@ function detect_rect_arc_collision(object1,object2) {
 }
 
 function throwArc() {
+	var falling_arc_settings = {"x":0,"y":0,"r":15,"sAngle":0,
+							"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
+							"fillStyle":"orange","speed":7,"counterclockwise":false};
+	falling_arc_settings.x = Math.floor((Math.random() * canvas.width) + 1);
+	falling_arc_settings.y = Math.floor((Math.random() * 500) - canvas.height);
+	falling_arc.push(falling_arc_settings);
+}
+
+function shootArc() {
 	var arc_settings = {"x":rect1.x + (rect1.w*(1/2)),"y":rect1.y,"r":15,"sAngle":0,
 						"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
 						"fillStyle":"orange","speed":20,"counterclockwise":false};
@@ -174,7 +217,7 @@ function throwArc() {
 }
 function gameLoop() {
 	if (keyState[32]) {
-		throwArc();
+		shootArc();
 	}
 	if (keyState[37]) {
 		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
