@@ -1,4 +1,4 @@
-class Rectangle{
+	class Rectangle{
 	constructor(ctx,x,y,w,h,
 				strokeStyle,
 				fillStyle,
@@ -70,6 +70,8 @@ var rect2_settings = {"x":300,"y":100,"w":150,"h":50,
 var arc1_settings = {"x":440,"y":425,"r":15,"sAngle":0,
 					"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
 					"fillStyle":"orange","speed":20};
+
+
 
 rect1 = new Rectangle(ctx,
 					  rect1_settings.x,
@@ -174,25 +176,16 @@ function gameLoop() {
 	if (keyState[32]) {
 		throwArc();
 	}
-	if (keyState[37] && keyState[38]){
+	if (keyState[37]) {
 		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
-		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
-	} else if (keyState[39] && keyState[38]) {
+	}
+	if (keyState[39]) {
 		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
-		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
-	} else if (keyState[39] && keyState[40]) {
-		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
+	}
+	if (keyState[40]) {
 		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
-	} else if (keyState[37] && keyState[40]){
-		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
-		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
-	} else if (keyState[37]) {
-		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
-	} else if (keyState[39]) {
-		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
-	} else if (keyState[40]) {
-		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
-	} else if (keyState[38]) {
+	}
+	if (keyState[38]) {
 		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
 	}				
 	draw();
