@@ -154,3 +154,11 @@ function detect_rect_collision(object1,object2) {
 	}
 	return false;
 }
+function detect_rect_arc_collision(object1,object2) {
+	var horizontal_detection = (((object1.x + object1.w >= object2.x) || (object1.x + object1.w >= object2.x - object2.r)) && object1.x <= object2.x + object2.r);
+	var vertical_detection = (((object1.y + object1.h >= object2.y) || (object1.y + object1.h >= object2.y - object2.r)) && object1.y <= object2.y + object2.r);
+	if (horizontal_detection && vertical_detection) {
+		return true;
+	}
+	return false;
+}
