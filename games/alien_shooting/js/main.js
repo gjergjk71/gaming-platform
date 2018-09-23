@@ -96,3 +96,33 @@ arc1 = new Arc(ctx,
 				arc1_settings.strokeStyle,
 				arc1_settings.fillStyle,
 				arc1_settings.speed);
+
+var keyState = {};
+var arc_moving = [];
+function draw() {
+	this.ctx.clearRect(0,0,canvas.width,canvas.height);
+	if (detect_rect_collision(rect1,rect2)) {
+		rect1.fillStyle = "blue";
+	} else if (detect_rect_arc_collision(rect1,arc1)) {
+		
+	} else {
+		rect1.fillStyle = "orange";
+	}
+	rect2.draw;
+	rect1.draw;	
+	arc1.draw;
+	for (var arc in arc_moving) {
+		if (arc_moving[arc].y < -1) {
+			delete arc_moving[arc];
+		} else {
+			ctx.beginPath();
+			ctx.arc(arc_moving[arc].x,arc_moving[arc].y,arc_moving[arc].r,arc_moving[arc].sAngle,arc_moving[arc].eAngle,arc_moving[arc].counterclockwise);
+			ctx.strokeStyle = "blue";
+			ctx.fillStyle = "orange";
+			ctx.fill();
+			ctx.stroke();
+			ctx.closePath();
+			arc_moving[arc].y -= arc_moving[arc].speed;
+		}
+	}
+}
