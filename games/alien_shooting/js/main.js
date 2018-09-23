@@ -170,3 +170,32 @@ function throwArc() {
 	arc_moving.push(arc_settings);
 
 }
+function gameLoop() {
+	if (keyState[32]) {
+		throwArc();
+	}
+	if (keyState[37] && keyState[38]){
+		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
+		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
+	} else if (keyState[39] && keyState[38]) {
+		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
+		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
+	} else if (keyState[39] && keyState[40]) {
+		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
+		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
+	} else if (keyState[37] && keyState[40]){
+		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
+		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
+	} else if (keyState[37]) {
+		moveRect(rect1.x - rect1.speed,rect1.y,rect1.w,rect1.h);
+	} else if (keyState[39]) {
+		moveRect(rect1.x + rect1.speed,rect1.y,rect1.w,rect1.h);
+	} else if (keyState[40]) {
+		moveRect(rect1.x,rect1.y + rect1.speed,rect1.w,rect1.h);
+	} else if (keyState[38]) {
+		moveRect(rect1.x,rect1.y - rect1.speed,rect1.w,rect1.h);
+	}				
+	draw();
+	window.requestAnimationFrame(gameLoop);
+}
+window.requestAnimationFrame(gameLoop);
