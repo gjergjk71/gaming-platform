@@ -12,7 +12,7 @@ Game: {{game.GameName}}
 </div>
 <form>
 	{% csrf_token %}
-	Message:<textarea></textarea>
+	Message:<textarea id="content"></textarea>
 	<button id="send" type="button">Send</button>
 </form>
 <script type="text/javascript">
@@ -37,6 +37,19 @@ Game: {{game.GameName}}
 		chat_div = document.getElementById("chat_messages");	
 		chat_div.innerHTML = "Messages:"; 
 	}
+	function sendMessage(){
+		var content = document.getElementById("content");
+		$.ajax({
+			method: "POST",
+			url:"/chat/send_message_api/1",
+			data:{"csrfmiddlewaretoken":csrftoken,"content":content.value},
+		}).done(function(json){
+			if (!json.successfull){
+				alert("Message not sent!");
+			}
+		})
+		content.value = "";
+	}
 	function update(){
 		$.ajax({
 		  method: "POST",
@@ -60,7 +73,7 @@ Game: {{game.GameName}}
 		window.setTimeout(update,500);
 	} 
 	update();
-	document.getElementById("send").onclick = update;
+	document.getElementById("send").onclick = sendMessage;
 
 </script>
 
