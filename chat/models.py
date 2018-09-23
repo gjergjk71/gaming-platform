@@ -9,5 +9,5 @@ class GameMessage(models.Model):
 	content = models.TextField()
 	def __str__(self):
 		if len(content) > 250:
-			return "{}-{}...".format(user_profile,content[:247])
-		return "{}-{}...".format(user_profile,content)
+			return "{}-{}...".format(self.user_profile,self.content[:247])
+		return "{}-{}...".format(self.user_profile,self.content)
