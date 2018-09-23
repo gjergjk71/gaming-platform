@@ -103,19 +103,19 @@ var keyState = {};
 var arc_moving = [];
 var falling_arc = [];
 var arcs_in_a_row = 2
-function increase_dificulty() {
+function increase_difficulty() {
 	arcs_in_a_row++
 	console.log(arcs_in_a_row);
 	if (arcs_in_a_row < 5) {
-		window.setInterval(increase_dificulty,1000 * Math.floor((Math.random() * 40) + 1))
+		window.setInterval(increase_difficulty,1000 * Math.floor((Math.random() * 40) + 1))
 	} else if (arcs_in_a_row < 10) {
-		window.setInterval(increase_dificulty,1000 * Math.floor((Math.random() * 10) + 1))		
+		window.setInterval(increase_difficulty,1000 * Math.floor((Math.random() * 10) + 1))		
 	}
 	else if (arcs_in_a_row > 10) {
-		window.setInterval(increase_dificulty,10000)		
+		window.setInterval(increase_difficulty,10000)		
 	}
 };
-increase_dificulty();
+increase_difficulty();
 function draw() {
 	this.ctx.clearRect(0,0,canvas.width,canvas.height);
 	if (detect_rect_collision(rect1,rect2)) {
