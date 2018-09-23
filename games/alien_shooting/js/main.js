@@ -63,7 +63,7 @@ var ctx = canvas.getContext("2d");
 
 var rect1_settings = {"x":360,"y":440,"w":150,"h":30,
 					"strokeStyle":"rgba(0, 0, 100, 200.5)",
-					"fillStyle":"orange","speed":6,"shooting_speed":5}
+					"fillStyle":"orange","speed":10,"shooting_speed":0}
 var rect2_settings = {"x":300,"y":100,"w":150,"h":50,
 					"strokeStyle":"rgba(0, 0, 100, 200.5)",
 					"fillStyle":"orange","speed":10}
@@ -71,7 +71,7 @@ var arc1_settings = {"x":440,"y":425,"r":15,"sAngle":0,
 					"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
 					"fillStyle":"orange","speed":20};
 
-
+health = document.getElementById("health");
 
 rect1 = new Rectangle(ctx,
 					  rect1_settings.x,
@@ -101,19 +101,24 @@ arc1 = new Arc(ctx,
 
 var keyState = {};
 var arc_moving = [];
+var throw_falling_arcs = true;
 var falling_arc = [];
 var arcs_in_a_row = 2
 function increase_difficulty() {
-	arcs_in_a_row++
-	console.log(arcs_in_a_row);
-	if (arcs_in_a_row < 5) {
-		window.setInterval(increase_difficulty,1000 * Math.floor((Math.random() * 40) + 1))
-	} else if (arcs_in_a_row < 10) {
-		window.setInterval(increase_difficulty,1000 * Math.floor((Math.random() * 10) + 1))		
-	}
-	else if (arcs_in_a_row > 10) {
-		window.setInterval(increase_difficulty,10000)		
-	}
+		if (arcs_in_a_row < 15) {
+			arcs_in_a_row++;
+			if (arcs_in_a_row < 5) {
+				window.setInterval(increase_difficulty,1000)
+			} else if (arcs_in_a_row < 10) {
+				window.setInterval(increase_difficulty,1000 * Math.floor((Math.random() * 30) + 1))		
+			}
+			else if (arcs_in_a_row > 10) {
+				window.setInterval(increase_difficulty,10000)		
+			}
+		} else {
+			arcs_in_a_row--;
+			window.setInterval(increase_difficulty,1000)		
+		}
 };
 increase_difficulty();
 function draw() {
@@ -134,8 +139,11 @@ function draw() {
 		}
 	}
 	for (var arc in falling_arc) {
+		health_number = Number(health.innerHTML.split(" " )[1])
 			if (falling_arc[arc].y > canvas.height) {
 				falling_arc.splice(arc,1);
+				console.log(health.innerHTML);
+				health.innerHTML = "Health: " + String(Number(health.innerHTML.split(" " )[1]) - 5);
 			} else {
 				ctx.beginPath();
 				ctx.arc(falling_arc[arc].x,falling_arc[arc].y,falling_arc[arc].r,falling_arc[arc].sAngle,falling_arc[arc].eAngle,falling_arc[arc].counterclockwise);
@@ -145,6 +153,10 @@ function draw() {
 				ctx.stroke();
 				ctx.closePath();
 				falling_arc[arc].y += falling_arc[arc].speed;
+			}
+			if (health_number <= 0) {
+				throw_falling_arcs = false;
+				health.innerHTML = "Health: " + "0";
 			}
 	}
 	for (var arc in arc_moving) {
@@ -200,12 +212,14 @@ function detect_rect_arc_collision(object1,object2) {
 }
 
 function throwArc() {
-	var falling_arc_settings = {"x":0,"y":0,"r":15,"sAngle":0,
-							"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
-							"fillStyle":"orange","speed":7,"counterclockwise":false};
-	falling_arc_settings.x = Math.floor((Math.random() * canvas.width) + 1);
-	falling_arc_settings.y = Math.floor((Math.random() * 500) - canvas.height);
-	falling_arc.push(falling_arc_settings);
+	if (throw_falling_arcs){
+		var falling_arc_settings = {"x":0,"y":0,"r":15,"sAngle":0,
+								"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
+								"fillStyle":"orange","speed":5,"counterclockwise":false};
+		falling_arc_settings.x = Math.floor((Math.random() * canvas.width) + 1);
+		falling_arc_settings.y = Math.floor((Math.random() * 500) - canvas.height);
+		falling_arc.push(falling_arc_settings);
+	}
 }
 
 function shootArc() {
