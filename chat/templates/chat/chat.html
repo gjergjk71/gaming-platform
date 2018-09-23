@@ -39,16 +39,18 @@ Game: {{game.GameName}}
 	}
 	function sendMessage(){
 		var content = document.getElementById("content");
-		$.ajax({
-			method: "POST",
-			url:"/chat/send_message_api/1",
-			data:{"csrfmiddlewaretoken":csrftoken,"content":content.value},
-		}).done(function(json){
-			if (!json.successfull){
-				alert("Message not sent!");
-			}
-		})
-		content.value = "";
+		if (content.value) {
+			$.ajax({
+				method: "POST",
+				url:"/chat/send_message_api/1",
+				data:{"csrfmiddlewaretoken":csrftoken,"content":content.value},
+			}).done(function(json){
+				if (!json.successfull){
+					alert("Message not sent!");
+				}
+			})
+			content.value = "";
+		}
 	}
 	function update(){
 		$.ajax({
@@ -56,7 +58,6 @@ Game: {{game.GameName}}
 		  url: "/chat/get_messages_api/1",
 		  data:{"csrfmiddlewaretoken":csrftoken},
 		}).done(function(messages) {
-			console.log(messages_len,messages.length);
 			if (messages_len < messages.length) {
 				clear();
 				chat_div = document.getElementById("chat_messages");
@@ -74,7 +75,11 @@ Game: {{game.GameName}}
 	} 
 	update();
 	document.getElementById("send").onclick = sendMessage;
-
+	document.addEventListener("keyup",(event) =>{
+		if (event.keyCode == 13){
+			sendMessage();
+		}
+	})
 </script>
 
 </body>
