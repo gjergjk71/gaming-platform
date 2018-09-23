@@ -126,3 +126,11 @@ function draw() {
 		}
 	}
 }
+draw();
+document.addEventListener("keyup", (event) => {
+	keyState[event.keyCode] = false; 
+
+},false);
+document.addEventListener("keydown", (event) => {
+	keyState[event.keyCode] = true; 
+},false);
