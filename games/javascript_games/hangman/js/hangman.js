@@ -34,10 +34,9 @@ window.onload = function () {
 			button.setAttribute("class","btn btn-secondary")
 			button.onclick = ""
 			if (word.split('').indexOf(letter) >= 0) {
-				console.log("true)");
 				for (var i=0;i<word.length;i++) {
-					if (letter == word[i]) {
-						guessedLetters[letter] = true;
+					if (letter == word[i][0]) {
+						guessedLetters[i][1] = true;
 						guessed = true;
 					}
 				}
@@ -66,19 +65,18 @@ window.onload = function () {
 	};
 	function showGuessedLetters() {
 		show = ""
-		for (var key in guessedLetters){
-			if (!guessedLetters[key]){
+		for (var item in guessedLetters){
+			if (!guessedLetters[item][1]){
 				show += "_ ";
 			} else {
-				show += key;
+				show += guessedLetters[item][0];
 			};
 		document.getElementById("guessed_letters").innerHTML=show;
-		console.log(guessedLetters);
 		};
 	};
 	function checkWon() {
-		for (var key in guessedLetters) {
-			if (guessedLetters[key] == false) {
+		for (var item in guessedLetters) {
+			if (guessedLetters[item][1] == false) {
 				return false;
 			}
 		}
@@ -97,12 +95,11 @@ window.onload = function () {
 	};
 	function play() {
 		resetButtons()
-		guessedLetters = {};
+		guessedLetters = [];
 		guessesLeft = 10; // 
 		word = wordsList[Math.floor(Math.random() * wordsList.length)]; //Word to guess
-		console.log(word);
 		for (var i=0;i<word.length;i++) {
-			guessedLetters[word[i]] = false;
+			guessedLetters.push([word[i],false]);
 		};
 		info_h3.innerHTML = `You've got ${guessesLeft} guesses left!`;
 		showGuessedLetters()
