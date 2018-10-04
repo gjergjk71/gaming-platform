@@ -67,6 +67,9 @@ var rect1_settings = {"x":360,"y":440,"w":150,"h":30,
 var rect2_settings = {"x":300,"y":100,"w":150,"h":50,
 					"strokeStyle":"rgba(0, 0, 100, 200.5)",
 					"fillStyle":"orange","speed":10}
+var enemy_rect_settings = {"x":undefined,"y":-5,"w":undefined,"h":undefined,
+					"strokeStyle":"rgba(0, 0, 100, 200.5)",
+					"fillStyle":"green","speed":2,"shooting_speed":0}
 var arc1_settings = {"x":440,"y":425,"r":15,"sAngle":0,
 					"eAngle":2*Math.PI,"strokeStyle":"rgba(0, 0, 100, 200.5)",
 					"fillStyle":"orange","speed":20};
@@ -104,6 +107,8 @@ var arc_moving = [];
 var throw_falling_arcs = true;
 var falling_arc = [];
 var arcs_in_a_row = 2
+var enemies_rect =[];
+
 function increase_difficulty() {
 		if (arcs_in_a_row < 15) {
 			arcs_in_a_row++;
@@ -120,7 +125,16 @@ function increase_difficulty() {
 			window.setInterval(increase_difficulty,1000)		
 		}
 };
-increase_difficulty();
+
+function add_enemy() {
+	enemy_rect_settings.x = 80 * Math.floor((Math.random() * 10) + 1);
+	enemy_rect_settings.w = 11 * Math.floor((Math.random() * 10) + 1);
+	enemy_rect_settings.h = 11 * Math.floor((Math.random() * 10) + 1);
+	enemies_rect.push(enemy_rect_settings);
+	console.log(enemies_rect);
+}
+
+add_enemy();
 function draw() {
 	this.ctx.clearRect(0,0,canvas.width,canvas.height);
 	if (detect_rect_collision(rect1,rect2)) {
@@ -135,7 +149,7 @@ function draw() {
 	arc1.draw;
 	if (!falling_arc.length) {
 		for (var x=0;x<= arcs_in_a_row;x++){
-			throwArc();
+			
 		}
 	}
 	for (var arc in falling_arc) {
@@ -161,6 +175,7 @@ function draw() {
 	}
 	for (var arc in arc_moving) {
 		if (arc_moving[arc].y < -1) {
+			health
 			delete arc_moving[arc];
 		} else {
 			ctx.beginPath();
@@ -171,6 +186,23 @@ function draw() {
 			ctx.stroke();
 			ctx.closePath();
 			arc_moving[arc].y -= arc_moving[arc].speed;
+		}
+	}
+	for (var enemy in enemies_rect){
+		if (enemies_rect[enemy].y > canvas.height) {
+			delete enemies_rect[enemy];
+			health.innerHTML = "Health: " + String(Number(health.innerHTML.split(" " )[1]) - 5);
+		} else {
+			ctx.beginPath();
+			var enemy_rect = new Rectangle(ctx,enemies_rect[enemy].x,
+									   enemies_rect[enemy].y,
+									   enemies_rect[enemy].w,
+									   enemies_rect[enemy].h,
+									   enemies_rect[enemy].strokeStyle,
+									   enemies_rect[enemy].fillStyle)
+			enemy_rect.draw;
+			enemies_rect[enemy].y += enemies_rect[enemy].speed;
+			console.log(enemies_rect[enemy].x,enemies_rect[enemy].y);
 		}
 	}
 }
