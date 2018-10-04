@@ -140,7 +140,7 @@ function draw() {
 	}
 	for (var arc in falling_arc) {
 		health_number = Number(health.innerHTML.split(" " )[1])
-			if (falling_arc[arc].y > canvas.height) {
+			if (detect_rect_arc_collision(rect1,falling_arc[arc])) {
 				falling_arc.splice(arc,1);
 				console.log(health.innerHTML);
 				health.innerHTML = "Health: " + String(Number(health.innerHTML.split(" " )[1]) - 5);
