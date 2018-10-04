@@ -1,40 +1,18 @@
-from django.shortcuts import render,get_object_or_404,redirect,reverse
-from django.http import HttpResponse
-from .models import GameMessage
-from user_profile.models import UserProfile
-from games.models import Game
-from django.core import serializers
-# Create your views here.
+from django.shortcuts import render,redirect,get_object_or_404
+from django.utils.safestring import mark_safe
+from .models import ChatRoom,Message
+import json
 
-def game_chat(request,game_id):
-	if request.user.is_authenticated:
-		game = get_object_or_404(Game,pk=game_id)
-		game_messages = GameMessage.objects.filter(game=game)
-		context = {"game":game,"game_messages":game_messages}
-		return render(request,"chat/chat.html",context)
+def index(request):
+	return render(request, 'chat/index.html', {})
+
+def room(request, room_name):
+	chatRoom = ChatRoom.objects.filter(name=room_name.lower())
+	if chatRoom:
+		messages = Message.objects.filter(chatRoom=chatRoom[0]).values_list('id', 'message')
+		return render(request, 'chat/room.html', {
+			'room_name_json': mark_safe(json.dumps(room_name)),
+			"messages":list(messages)
+		})
 	else:
-		return redirect("/")
-
-def get_messages_api(request,game_id):
-	game = get_object_or_404(Game,pk=game_id)
-	game_messages = GameMessage.objects.filter(game=game)
-	data = serializers.serialize('json', game_messages)
-	return HttpResponse(data,content_type="application/json")
-
-def send_message_api(request,game_id):
-	if request.user.is_authenticated:
-		if request.method == "GET":
-			return redirect(reverse("game_chat",args=[game_id]))
-		try:
-			game = get_object_or_404(Game,pk=game_id)
-			user_profile = get_object_or_404(UserProfile,user=request.user)
-			content = request.POST.get("content")
-			GameMessage.objects.create(game=game,
-									   user_profile=user_profile,
-									   content=content)
-			data = serializers.serialize('json', {"successfull":True})
-		except:
-			data = serializers.serialize('json', {"successfull":False})
-	else:
-		data = '{"successfull":false}'
-	return HttpResponse(data,content_type="application/json")
+		return redirect("/chat/")
