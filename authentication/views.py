@@ -3,22 +3,27 @@ from django.contrib.auth.views import login
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse 
+import json
 
 # Create your views here.
+
+def valid_credentials_api(request):
+	username = request.POST.get("username")
+	password = request.POST.get("password")
+	user = authenticate(request, username=username, password=password)
+	if user is not None:
+		login(request)
+		data = {"valid_credentials":True}
+	else:
+		data = {"valid_credentials":False}
+	return HttpResponse(json.dumps(data),content_type="application/json")
+
 
 def custom_login(request):
 	if request.user.is_authenticated:
 		return redirect("/")
-	elif request.method == "POST":            
-		username=request.POST.get("username")
-		password = request.POST.get("password")                     
-		user = authenticate(request, username=username, password=password)
-		if user is not None:
-			return login(request)
-		else:
-			return render(request,"registration/login.html",{'invalid': True })
-	elif request.method == "GET":
-		return login(request)
+	return render(request,"registration/login.html",{'invalid': True })
 	
 def register(request):
 	if request.user.is_authenticated:

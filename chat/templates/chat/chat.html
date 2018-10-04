@@ -2,30 +2,85 @@
 <head>
 
 </head>
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <body>
 Game: {{game.GameName}}
-<ul>Messages:
-	<li>
-	{% for message in game_messages %}
-		{{message.user_profile}} - {{message.content}}
-	{% empty %}
-		Nothing to show.
-	{% endfor %}
-	</li>
-</ul>
+<div id="chat_messages">
+</div>
 <form>
-	Message:<textarea></textarea>
-	<button type="button" onclick="send()">Send</button>
+	{% csrf_token %}
+	Message:<textarea id="content"></textarea>
+	<button id="send" type="button">Send</button>
 </form>
 <script type="text/javascript">
-	
+	function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie !== '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+	messages_len = document.getElementById("chat_messages").getElementsByTagName("li").length;
+	function clear(){
+		chat_div = document.getElementById("chat_messages");	
+		chat_div.innerHTML = "Messages:"; 
+	}
+	function sendMessage(){
+		var content = document.getElementById("content");
+		if (content.value) {
+			$.ajax({
+				method: "POST",
+				url:"/chat/send_message_api/1",
+				data:{"csrfmiddlewaretoken":csrftoken,"content":content.value},
+			}).done(function(json){
+				if (!json.successfull){
+					alert("Message not sent!");
+				}
+			})
+			content.value = "";
+		}
+	}
 	function update(){
-		
+		$.ajax({
+		  method: "POST",
+		  url: "/chat/get_messages_api/1",
+		  data:{"csrfmiddlewaretoken":csrftoken},
+		}).done(function(messages) {
+			if (messages_len < messages.length) {
+				clear();
+				chat_div = document.getElementById("chat_messages");
+				ul = document.createElement("ul");
+				for (var message in messages){
+					li = document.createElement("li");
+					li.innerHTML = `${messages[message]["fields"]["user_profile"]} - ${messages[message]["fields"]["content"]}`;
+					ul.appendChild(li);
+				}
+				chat_div.appendChild(ul);
+				messages_len = document.getElementById("chat_messages").getElementsByTagName("li").length;
+			}
+		  });
+		window.setTimeout(update,500);
 	} 
-
+	update();
+	document.getElementById("send").onclick = sendMessage;
+	document.addEventListener("keyup",(event) =>{
+		if (event.keyCode == 13){
+			sendMessage();
+		}
+	})
 </script>
 
 </body>
-
 </html>
