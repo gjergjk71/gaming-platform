@@ -30,5 +30,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("auth/", include("authentication.urls"),name="auth"),
     re_path(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
-
+    path("chat/", include("chat.urls"),name="chat"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
