@@ -1,73 +1,148 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
-
-	<main>
-		<div class="bg_color_2">
-			<div class="container margin_60_35">
-				<div id="register">
-					<h1>Please register to Findoctor!</h1>
-					<div class="row justify-content-center">
-						<div class="col-md-5">
-							{% for error,message in form.errors.items %}
-								<div class="alert alert-danger" role="alert">
-									{{error }}
-								  {{message}}
-								</div>
-							{% endfor %}
-							<form method="POST" action="{% url 'register' %}" /> {% csrf_token %}
-								<div class="box_form">
-								<label>name</label>
-
-								<input type="text" name="first_name" class="form-control" placeholder="Your name" />
-									</div>
-									<div class="form-group">
-										<label>Last name</label>
-										<input type="text" name="last_name" class="form-control" placeholder="Your last name" />
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+ <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="{%static 'css/style.css' %}">
 
 
-								
+</head>
+<body >
 
-									<div class="form-group">
-										<label>Email</label>
-										<input type="text" name="email" class="form-control" placeholder="Your email address" />
-									</div>
-									<div class="form-group">
-										<label>Username</label>
-										<input type="text" id="id_username" name="username" class="form-control" placeholder="Your username" />
-									</div>
-									<div class="form-group">
-										<label>Password</label>
-										<input type="password" name="password1" id="id_password1" class="form-control" placeholder="Your password" />
-									</div>
-									<div class="form-group">
-										<label>Confirm Password</label>
-										<input type="password" name="password2" id="id_password2" class="form-control" placeholder="Your password" />
-									</div>
-									<div id="pass-info" class="clearfix"></div>
-									<div class="checkbox-holder text-left">
-										<div class="checkbox_2">
-											<input type="checkbox" value="accept_2" id="check_2" name="check_2" checked="" />
-											<label for="check_2"><span>I Agree to the <strong>Terms &amp; Conditions</strong></span></label>
-										</div>
-									</div>
-									<div class="form-group text-center add_top_30">
-										<input class="btn_1" type="submit" value="Submit" />
-									</div>
-								</div>
-								<p class="text-center"><small>Has voluptua vivendum accusamus cu. Ut per assueverit temporibus dissentiet. Eum no atqui putant democritum, velit nusquam sententiae vis no.</small></p>
-							</form>
-						</div>
-					</div>
-					<!-- /row -->
-				</div>
-				<!-- /register -->
-			</div>
-		</div>
-	</main>
-	<!-- /main -->
+    
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" style="color: red" class="signup-form" name ="signup-form" action="{%url 'register' %}">{% csrf_token %}
+                        <h2 class="form-title">Create account</h2>
+                      {% for error,message in form.errors.items %}
+                       {{message}}
+                      {% endfor %}
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="first_name" id="first_name" minlength="2" placeholder="Your Firstname"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="last_name" id="last_name" minlength="2" placeholder="Your Lastname"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="username"  minlength='4' id="username" maxlength="14" placeholder="Your username"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input  class="form-input" name="password1" type="password" minlength= "5" maxlength="18" id="Password1" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password2" class="form-input" minlength="5"  maxlength="18"id="Password2" placeholder="Repeat your password"/>
+                        </div>
+                
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="sumbit" class="form-submit" value="Sign up"/>
+                 
 
 
-	
+                        </div>
+                        
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a href="{%url 'login' %}" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+       $("form[name='signup-form']").validate({
+        rules: {
+          first_name: {
+            required: true
+            
+          },
+          last_name: {
+            required: true
+
+          },
+          username: {
+            required: true
+          },
+          email: {
+            required: true
+          },
+          password1: {
+            required: true,
+            notequalTo:"#username"
+          },
+          password2: {
+            required: true,
+            equalTo: "#Password1"
+          }
+        
+
+        },
+        messages: {
+          first_name: {
+            required: "This field is required!"
+          },
+          last_name: {
+            required: "This field is required!"
+          },
+          username: {
+            required: "This field is required!"
+          },
+          email: {
+            required: "This field is required!"
+          },
+          password1: {
+            required: "This field is required!",
+
+          },
+          password2: {
+            required: "This field is required!",
+            equalTo: "Your password and confirmation password do not match!"
+          }
+          },
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+        $('#sumbit').click(function(){
+            if ($("#first_name").valid() == false) {
+              $("#first_name").focus();
+            }
+            if ($("#last_name").valid() == false) {
+              $("#last_name").focus();
+            }if ($("#username").valid() == false) {
+              $("#username").focus();
+            }
+            if ($("#email").valid() == false) {
+              $("#email").focus();
+            }
+            if ($("#password1").valid() == false) {
+              $("#password1").focus();
+            }if ($("#password2").valid() == false) {
+              $("#password2").focus();
+
+          }
+          
+
+       });
+          });
+</script>
+
+</script>
+
 </body>
 </html>

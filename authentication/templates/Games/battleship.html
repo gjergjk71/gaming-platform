@@ -1,0 +1,126 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battleship</title>
+	<link rel="icon" type="image/jpg" href="{%static 'ship.jpg' % }">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+.btn
+{
+	height: 130px;
+	border-color: darkblue;
+	border-width: 0.5px;
+	border-style: solid;
+}
+.p
+{
+	font-size:25px;
+	display: inline;
+}
+#res:hover
+{
+	 background-color: #bcbcbc;
+	 color: #ffffff;
+}
+#res:active
+{	
+	background-color: #999999;
+	color: black;
+}
+.btn:hover
+{
+	background-color: #bcbcbc;
+}
+.btn:active	
+{
+	background-color: #999999;
+}
+</style>
+</head>
+<body>
+<div class="row">
+	<div class="col-sm-12" style="margin-top: 1.5%;"></div>	
+		<div class="col-sm-2"></div>
+		<div class="col-sm-3"><p id="p1" class="p">Score:<p id="pl1" class="p"></p></p></div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-3"><p id="p2" class="p">Score:<p id="pl2" class="p"></p></p></div>
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-sm-6" style="margin-top: 3.7%;">
+		
+			<div class="col-sm-12 ships">
+				<button id="a1" class="col-sm-3 btn btn-secondary" onclick="side1('a1')"></button>
+				<button id="a2" class="col-sm-3 btn btn-secondary" onclick="side1('a2')"></button>
+				<button id="a3" class="col-sm-3 btn btn-secondary" onclick="side1('a3')"></button>
+				<button id="a4" class="col-sm-3 btn btn-secondary" onclick="side1('a4')"></button>
+			</div>
+		
+			<div class="col-sm-12">
+				<button id="a5" class="col-sm-3 btn btn-secondary" onclick="side1('a5')"></button>
+				<button id="a6" class="col-sm-3 btn btn-secondary" onclick="side1('a6')"></button>
+				<button id="a7" class="col-sm-3 btn btn-secondary" onclick="side1('a7')"></button>
+				<button id="a8" class="col-sm-3 btn btn-secondary" onclick="side1('a8')"></button>
+			</div>
+		
+			<div class="col-sm-12">
+				<button id="a9" class="col-sm-3 btn btn-secondary" onclick="side1('a9')"></button>
+				<button id="a10" class="col-sm-3 btn btn-secondary" onclick="side1('a10')"></button>
+				<button id="a11" class="col-sm-3 btn btn-secondary" onclick="side1('a11')"></button>
+				<button id="a12" class="col-sm-3 btn btn-secondary" onclick="side1('a12')"></button>
+			</div>
+		
+			<div class="col-sm-12">
+				<button id="a13" class="col-sm-3 btn btn-secondary" onclick="side1('a13')"></button>
+				<button id="a14" class="col-sm-3 btn btn-secondary" onclick="side1('a14')"></button>
+				<button id="a15" class="col-sm-3 btn btn-secondary" onclick="side1('a15')"></button>
+				<button id="a16" class="col-sm-3 btn btn-secondary" onclick="side1('a16')"></button>
+			</div>
+	
+</div>
+<div class="col-sm-2"></div>
+
+<div class="col-sm-6" style="margin-top: 3.55%;">
+<div class="col-sm-2">
+</div>
+		<div class="col-sm-12">
+			<button id="b1"  class="col-sm-3 btn btn-secondary" onclick="side2('b1')"></button>
+			<button id="b2"  class="col-sm-3 btn btn-secondary" onclick="side2('b2')"></button>
+			<button id="b3"  class="col-sm-3 btn btn-secondary" onclick="side2('b3')"></button>
+			<button id="b4"  class="col-sm-3 btn btn-secondary" onclick="side2('b4')"></button>
+		</div>
+	
+		<div class="col-sm-12">
+			<button id="b5"  class="col-sm-3 btn btn-secondary" onclick="side2('b5')"></button>
+			<button id="b6"  class="col-sm-3 btn btn-secondary" onclick="side2('b6')"></button>
+			<button id="b7"  class="col-sm-3 btn btn-secondary" onclick="side2('b7')"></button>
+			<button id="b8"  class="col-sm-3 btn btn-secondary" onclick="side2('b8')"></button>
+		</div>
+	
+		<div class="col-sm-12">
+			<button id="b9" class="col-sm-3 btn btn-secondary" onclick="side2('b9')"></button>
+			<button id="b10" class="col-sm-3 btn btn-secondary" onclick="side2('b10')"></button>
+			<button id="b11" class="col-sm-3 btn btn-secondary" onclick="side2('b11')"></button>
+			<button id="b12" class="col-sm-3 btn btn-secondary" onclick="side2('b12')"></button>
+		</div>
+	
+		<div class="col-sm-12">
+			<button id="b13"  class="col-sm-3 btn btn-secondary" onclick="side2('b13')"></button>
+			<button id="b14"  class="col-sm-3 btn btn-secondary" onclick="side2('b14')"></button>
+			<button id="b15"  class="col-sm-3 btn btn-secondary" onclick="side2('b15')"></button>
+			<button id="b16"  class="col-sm-3 btn btn-secondary" onclick="side2('b16')"></button>
+		</div>
+	
+
+	
+</div>
+<div class="row"><button onclick="refresh()" id="res"  style="font-size: 250%;" class="col-sm-12 btn btn-secondary">Restart</button></div>
+	
+</div>
+
+</body>
+	<script type="text/javascript" src="{%static 'BattleshipGame/battleship_js.js'%} "></script>
+
+</html>
