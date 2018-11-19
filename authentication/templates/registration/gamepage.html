@@ -1,0 +1,185 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Games</title>
+    <style type="text/css">
+      .li{
+        margin-left: 250px;
+      }
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/portfolio-item.css'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'Gari1/gari.css'%}">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    
+
+      <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="gamepage">Games</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+           
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <div class="dropdown">
+  <button class="dropbtn"><a class="dropbtn" href="{%url 'home' %}">Home</a></button>
+  <div class="dropdown-content">
+    <a href="#">Action</a>
+    <a href="#">Indie</a>
+    <a href="#">Arcade</a>
+    <a href="#">Add More...</a>
+  </div>
+</div>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Yeet</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+
+          </ul>
+        </div>
+
+
+      </div>
+              
+          {% if user.is_authenticated %}
+                <a class="nav-link" href="{%url 'logout' %}" style="position: right;
+                border: 15px;
+                border-radius: 4px;
+                background-color: #007acc;
+                padding: 10px 10px 10px 10px;
+                display: inline;
+                margin-right:  10px;
+                color: #bfbfbf;
+               transition-duration: 0.4s;">Log Out</a>
+
+
+
+        {% else %}
+             <a class="nav-link" href="{%url 'register' %}" style="position: right;
+                border: 15px;
+                border-radius: 4px;
+                background-color: #007acc;
+                padding: 10px 10px 10px 10px;
+                display: inline;
+                margin-right:  10px;
+                color: #bfbfbf;
+               transition-duration: 0.4s;">Sign Up</a>
+
+             <a class="nav-link" href="{%url 'login' %}" style="position: right;
+                border: 15px;
+                border-radius: 4px;
+                background-color: #007acc;
+                padding: 10px 10px 10px 10px;
+                display: inline;
+                margin-right:  10px;
+                color: #bfbfbf;
+               transition-duration: 0.4s;">Log In</a>
+        {% endif %}
+
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <!-- Portfolio Item Heading -->
+      <h1 class="my-4">{{game.GameName}}
+        <small>Battle royale</small>
+      </h1>
+
+      <!-- Portfolio Item Row -->
+      <div class="row">
+
+        <div class="col-md-7">
+          <iframe src="{{game.url}}" height="700" width="900"></iframe>
+
+        </div>
+
+        <div class="col-md-5" class="li" >
+          <h3 class="my-3">Project Description</h3>
+          <p>{{game.description}}</p>
+          <h3 class="my-3">Project Details</h3>
+          <ul class="li">
+            <li>Multiplayer</li>
+            <li>PvP</li>
+            <li>Play with friends</li>
+            <li>Cross platform</li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+      <!-- Related Projects Row -->
+      <h3 class="my-4">More games like this</h3>
+
+      <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{%static 'vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+  </body>
+
+</html>

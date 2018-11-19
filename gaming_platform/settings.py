@@ -27,33 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = "/auth/login"
-LOGIN_REDIRECT_URL = "/"
-
+LOGOUT_REDIRECT_URL = "/auth/home"
 # Application definition
 
 INSTALLED_APPS = [
-    "games",
-    "chat",
-    "user_profile",
     "authentication",
-    "channels",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'favicon',
 ]
-ASGI_APPLICATION = 'gaming_platform.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,5 +119,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+
+ 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+STATIC_ROOT = "/var/www/example.com/static/"
+
+LOGIN_REDIRECT_URL = '/auth/home'
+

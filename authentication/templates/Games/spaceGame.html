@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+</head>
+<style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+  </style>
+<body>
+	<canvas id="canvas" style="background: url('img/background.png');">
+		   	<p>You're browser does not support the required functionality to play this game.</p>
+      		<p>Please update to a modern browser such as <a href="www.google.com/chrome/‎">Google Chrome</a> to play.</p>
+	</canvas>
+</body>
+<script type="text/javascript" src="{% static 'SpaceGame/js/image.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/ui/health.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/ui/score.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/ui/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/collision_detection.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/meteors/asteroid.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/pickups/health_pickup.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/pickups/powerUp_pickup.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/ui/button.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/scenes/game.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/scenes/menu.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/scenes/credits.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/player/player.js' %}"></script>
+<script type="text/javascript" src="{% static 'SpaceGame/js/main.js' %}"></script>
+</html>
